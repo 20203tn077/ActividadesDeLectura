@@ -8,8 +8,13 @@
     src: url(../font/Lora-VariableFont_wght.ttf);
 }
 
+@font-face {
+    font-family: Questrial;
+    src: url(../font/Questrial-Regular.ttf);
+}
+
 body {
-    font-family: "Century Gothic",CenturyGothic,AppleGothic,sans-serif; 
+    font-family: "Century Gothic", Questrial; 
 }
 
 .oswald {
