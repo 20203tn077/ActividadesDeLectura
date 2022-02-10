@@ -1,0 +1,21 @@
+@font-face {
+    font-family: Oswald;
+    src: url(/assets/font/Oswald-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Lora;
+    src: url(/assets/font/Lora-VariableFont_wght.ttf);
+}
+
+body {
+    font-family: "Century Gothic",CenturyGothic,AppleGothic,sans-serif; 
+}
+
+.oswald {
+    font-family: Oswald;
+}
+
+.lora {
+    font-family: Lora;
+}

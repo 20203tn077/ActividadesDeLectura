@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades de lectura</title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container-fluid">
+                <span class="navbar-brand oswald mx-auto">ACTIVIDADES DE LECTURA</span>
+                <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item">
+                            <span class="nav-link" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" onclick="obtenerLecturaPorNivel(1)">Lecturas nivel 1</span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" onclick="obtenerLecturaPorNivel(2)">Lecturas nivel 2</span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" onclick="obtenerLecturaPorNivel(3)">Lecturas nivel 3</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container min-vh-100">
+        <div class="row">
+            <div class="col-12 col-md-8 col-xl-9 mt-4">
+                <section>
+                    <h5 class="oswald">Instrucciones</h5>
+                    <p>
+                        Utiliza esta página para probar tus habilidades de lectura, midiendo tu velocidad y comprensión
+                        lectora.<br>
+                        Presiona <span class="fw-bold">continuar</span> para mostrar una lectura de forma aleatoria.
+                        También puedes seleccionar un nivel de dificultad para ajustar el contenido y complejidad de las
+                        lecturas de acuerdo a tu nivel.
+                    </p>
+                    <div class="text-center">
+                        <button class="btn btn-dark" id="btnContinuarInstrucciones">Continuar</button>
+                    </div>
+                </section>
+                <hr>
+                <section id="secActividad" style="display: none;">
+                    <section id="secVelocidad">
+                        <h5 class="oswald">Velocidad de lectura</h5>
+                        <p>
+                            Presiona <span>empezar</span> para iniciar el contador y empieza a leer.
+                        </p>
+                        <div class="text-center">
+                            <button class="btn btn-dark" id="btnEmpezarVelocidad">Empezar</button>
+                            <h5 id="txtContador">00:00</h5>
+                        </div>
+                        <div class="card lora my-3 mx-md-3 shadow-sm" id="contenedorLectura">
+                            <div class="card-body">
+                                <h5 id="txtTitulo" class="card-title text-center"></h5>
+                                <p class="card-text" id="txtLectura"></p>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-dark" id="btnTerminarVelocidad">Terminar</button>
+                            <p id="resultadosVelocidad">Has terminado la lectura en <span id="txtMinutosVelocidad" class="fw-bold"></span> minutos a una velocidad de
+                                <span class="fw-bold" id="txtPalabrasVelocidad"></span> palabras por minuto.</p>
+                        </div>
+                    </section>
+                    <hr>
+                    <section id="comprensión">
+                        <h5 class="oswald">Comprensión lectora</h5>
+                        <p>
+                            Responde las preguntas de acuerdo a lo que leíste para medir tu nivel de comprensión
+                            lectora.
+                        </p>
+                        <div id="contenedorCuestionario">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Default radio:
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Default radio
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Default checked radio
+                                    </label>
+                                </div>
+                            </div>      
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Default radio:
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Default radio
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Default checked radio
+                                    </label>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-dark">Terminar</button>
+                            <div id="resultadosComprension">
+                                Puntuación obtenida:
+                                <h4 id="txtPuntuacionComprension">12/12</h4>
+                            </div>
+                        </div>
+                    </section>
+                    <hr>
+                    <div class="text-center">
+                        <button id="btnReiniciar" class="btn btn-dark mb-3 mx-2">Volver a empezar</button>
+                        <button id="btnNuevaLectura" class="btn btn-dark mb-3 mx-2">Nueva lectura</button>
+                    </div>
+                </section>
+            </div>
+            <div class="col-12 col-md-4 col-xl-3">
+                <div class="btn-group-vertical w-100 sticky-md-top mb-3 pt-md-4">
+                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked onclick="obtenerLecturaPorNivel(1)">
+                    <label class="btn btn-outline-dark" for="vbtn-radio1">Lecturas nivel 1</label>
+                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" onclick="obtenerLecturaPorNivel(2)">
+                    <label class="btn btn-outline-dark" for="vbtn-radio2">Lecturas nivel 2</label>
+                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off" onclick="obtenerLecturaPorNivel(3)">
+                    <label class="btn btn-outline-dark" for="vbtn-radio3">Lecturas nivel 3</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3" style="position: relative; bottom: 0; width: 100%;">
+        <div class="container-fluid">
+            © 2022 Universidad Tecnológica Emiliano Zapata del Estado de Morelos.
+        </div>
+    </footer>
+    <script src="./assets/js/bootstrap.bundle.js"></script>
+    <script src="./assets/js/lecturas.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
