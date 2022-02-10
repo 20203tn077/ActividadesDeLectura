@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 
-<body>
+<body class="bg-light">
     <header>
         <nav class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container-fluid">
@@ -45,7 +45,7 @@
                 <section>
                     <h5 class="oswald">Instrucciones</h5>
                     <p>
-                        Utiliza esta página para probar tus habilidades de lectura, midiendo tu velocidad y comprensión
+                        Utiliza esta página para probar tus habilidades de lectura midiendo tu velocidad y comprensión
                         lectora.<br>
                         Presiona <span class="fw-bold">continuar</span> para mostrar una lectura de forma aleatoria.
                         También puedes seleccionar un nivel de dificultad para ajustar el contenido y complejidad de las
@@ -60,7 +60,7 @@
                     <section id="secVelocidad">
                         <h5 class="oswald">Velocidad de lectura</h5>
                         <p>
-                            Presiona <span>empezar</span> para iniciar el contador y empieza a leer.
+                            Presiona <span class="fw-bold">empezar</span> para iniciar el cronometro y empieza a leer intentando comprender el texto. ¡No leas de forma apresurada! 
                         </p>
                         <div class="text-center">
                             <button class="btn btn-dark" id="btnEmpezarVelocidad">Empezar</button>
@@ -74,8 +74,7 @@
                         </div>
                         <div class="text-center">
                             <button class="btn btn-dark" id="btnTerminarVelocidad">Terminar</button>
-                            <p id="resultadosVelocidad">Has terminado la lectura en <span id="txtMinutosVelocidad" class="fw-bold"></span> minutos a una velocidad de
-                                <span class="fw-bold" id="txtPalabrasVelocidad"></span> palabras por minuto.</p>
+                            <p id="resultadosVelocidad" class="fs-5">Terminaste en <span id="txtMinutosVelocidad" class="fw-bold"></span> leyendo a <span class="fw-bold" id="txtPalabrasVelocidad"></span> palabras por minuto.</p>
                         </div>
                     </section>
                     <hr>
@@ -85,52 +84,12 @@
                             Responde las preguntas de acuerdo a lo que leíste para medir tu nivel de comprensión
                             lectora.
                         </p>
-                        <div id="contenedorCuestionario">
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    Default radio:
-                                </label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Default radio
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Default checked radio
-                                    </label>
-                                </div>
-                            </div>      
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    Default radio:
-                                </label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Default radio
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Default checked radio
-                                    </label>
-                                </div>
-                            </div>                            
-                        </div>
+                        <div id="contenedorPreguntas"></div>
                         <div class="text-center">
-                            <button class="btn btn-dark">Terminar</button>
-                            <div id="resultadosComprension">
-                                Puntuación obtenida:
-                                <h4 id="txtPuntuacionComprension">12/12</h4>
-                            </div>
+                            <button class="btn btn-dark" id="btnTerminarComprension">Terminar</button>
+                            <p id="resultadosComprension" class="fs-5">
+                                Lograste un nivel de comprensión del <span class="fw-bold" id="txtPuntuacionComprension"></span>.
+                            </p>
                         </div>
                     </section>
                     <hr>
@@ -141,13 +100,15 @@
                 </section>
             </div>
             <div class="col-12 col-md-4 col-xl-3">
-                <div class="btn-group-vertical w-100 sticky-md-top mb-3 pt-md-4">
-                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked onclick="obtenerLecturaPorNivel(1)">
-                    <label class="btn btn-outline-dark" for="vbtn-radio1">Lecturas nivel 1</label>
-                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" onclick="obtenerLecturaPorNivel(2)">
-                    <label class="btn btn-outline-dark" for="vbtn-radio2">Lecturas nivel 2</label>
-                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off" onclick="obtenerLecturaPorNivel(3)">
-                    <label class="btn btn-outline-dark" for="vbtn-radio3">Lecturas nivel 3</label>
+                <div class="sticky-md-top">
+                    <div class="btn-group-vertical w-100 mb-3 shadow mt-md-4">
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked onclick="obtenerLecturaPorNivel(1)">
+                        <label class="btn btn-outline-dark" for="vbtn-radio1">Lecturas nivel 1</label>
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" onclick="obtenerLecturaPorNivel(2)">
+                        <label class="btn btn-outline-dark" for="vbtn-radio2">Lecturas nivel 2</label>
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off" onclick="obtenerLecturaPorNivel(3)">
+                        <label class="btn btn-outline-dark" for="vbtn-radio3">Lecturas nivel 3</label>
+                    </div>
                 </div>
             </div>
         </div>

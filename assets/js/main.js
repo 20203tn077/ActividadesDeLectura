@@ -1,41 +1,38 @@
-// VARIABLES
+// ELEMENTOS
 // Secciones
-let secActividad = document.getElementById('secActividad');
-let secVelocidad = document.getElementById('lectura');
-let contenedorLectura = document.getElementById('contenedorLectura');
+const secActividad = document.getElementById('secActividad');
+const secVelocidad = document.getElementById('lectura');
+
+// Contenedores
+const contenedorLectura = document.getElementById('contenedorLectura');
+const contenedorPreguntas = document.getElementById('contenedorPreguntas');
 
 // Botones
-let btnContinuarInstrucciones = document.getElementById('btnContinuarInstrucciones');
-let btnEmpezarVelocidad = document.getElementById('btnEmpezarVelocidad');
-let btnTerminarVelocidad = document.getElementById('btnTerminarVelocidad');
-let btnTerminarComprension = document.getElementById('btnTerminarComprension');
-let btnReiniciar = document.getElementById('btnReiniciar');
-let btnNuevaLectura = document.getElementById('btnNuevaLectura');
+const btnContinuarInstrucciones = document.getElementById('btnContinuarInstrucciones');
+const btnEmpezarVelocidad = document.getElementById('btnEmpezarVelocidad');
+const btnTerminarVelocidad = document.getElementById('btnTerminarVelocidad');
+const btnTerminarComprension = document.getElementById('btnTerminarComprension');
+const btnReiniciar = document.getElementById('btnReiniciar');
+const btnNuevaLectura = document.getElementById('btnNuevaLectura');
 
 // Cadenas de texto
-let txtTitulo = document.getElementById('txtTitulo');
-let txtLectura = document.getElementById('txtLectura');
-let txtContador = document.getElementById('txtContador');
-let txtMinutosVelocidad = document.getElementById('txtMinutosVelocidad');
-let txtPalabrasVelocidad = document.getElementById('txtPalabrasVelocidad');
+const txtTitulo = document.getElementById('txtTitulo');
+const txtLectura = document.getElementById('txtLectura');
+const txtContador = document.getElementById('txtContador');
+const txtMinutosVelocidad = document.getElementById('txtMinutosVelocidad');
+const txtPalabrasVelocidad = document.getElementById('txtPalabrasVelocidad');
+const txtPuntuacionComprension = document.getElementById('txtPuntuacionComprension');
 
 // Resultados
-let resultadosVelocidad = document.getElementById('resultadosVelocidad');
-let resultadosComprension = document.getElementById('resultadosComprension');
+const resultadosVelocidad = document.getElementById('resultadosVelocidad');
+const resultadosComprension = document.getElementById('resultadosComprension');
 
-let contenedorPreguntas = document.getElementById('contenedorPreguntas');
-let = document;
-let = document;
-let = document;
-let = document;
-let = document;
-
-
+// VARIABLES
 let lecturasActual;
 let lecturaActual;
-
-let contadorSegundos = 0;
-let contadorMinutos = 0;
+let procesoContador;
+let contadorSegundos;
+let contadorMinutos;
 
 // FUNCIONES
 function obtenerLectura() {
@@ -52,23 +49,37 @@ function obtenerNuevaLectura() {
 }
 
 function mostrarLectura() {
-    if (typeof procesoContador !== 'undefined') clearInterval(procesoContador);
+    if ( procesoContador ) {
+        clearInterval(procesoContador);
+    }
     const {titulo, lectura} = lecturaActual;
+
     btnTerminarVelocidad.style.display = 'none';
     resultadosVelocidad.style.display = 'none';
     resultadosComprension.style.display = 'none';
     txtContador.style.display = 'none';
     btnEmpezarVelocidad.style.display = 'initial';
+    btnTerminarComprension.style.display = 'initial';
+
     txtContador.innerHTML = '00:00';
     txtTitulo.innerHTML = titulo;
     txtLectura.innerHTML = lectura;
+
+    let contenido = '';
+    lecturaActual.preguntas.map(({pregunta, opciones}, numPregunta) => {
+        contenido += `<div class="mb-3"><label class="form-label">${pregunta}</label>`
+        opciones.map((opcion, numOpcion) => {
+            contenido += `<div class="form-check"><input class="form-check-input" type="radio" value="${opcion}" name="pregunta${numPregunta}" id="pregunta${numPregunta}opcion${numOpcion}"><label class="form-check-label" for="pregunta${numPregunta}opcion${numOpcion}">${opcion}</label></div>`;
+        });
+        contenido += '</div>';
+    });
+    contenedorPreguntas.innerHTML = contenido;
     secActividad.scrollIntoView({block: "start", behavior: "smooth"});
 }
 
 function obtenerLecturaPorNivel(nivel) {
     lecturasActual = lecturas[nivel - 1];
-    lecturaActual = obtenerLectura();
-    mostrarLectura();
+    obtenerNuevaLectura();
 }
 
 // LISTENERS
@@ -102,7 +113,7 @@ btnEmpezarVelocidad.onclick = () => {
 btnTerminarVelocidad.onclick = () => {
     clearInterval(procesoContador);
     txtMinutosVelocidad.innerHTML = txtContador.innerHTML;
-    txtPalabrasVelocidad.innerHTML = (lecturaActual.numPalabras/(contadorMinutos + contadorSegundos/60));
+    txtPalabrasVelocidad.innerHTML = Math.round((lecturaActual.numPalabras/(contadorMinutos + contadorSegundos/60)) * 10) / 10;
     
     btnTerminarVelocidad.style.display = 'none';
     resultadosVelocidad.style.display = 'initial';
@@ -110,7 +121,29 @@ btnTerminarVelocidad.onclick = () => {
     resultadosVelocidad.scrollIntoView({block: "center", behavior: "smooth"});
 }
 
+btnTerminarComprension.onclick = () => {
+    let aciertos = 0;
+    const {preguntas} = lecturaActual;
+    preguntas.map(({respuesta}, numPregunta) => {
+        btnTerminarComprension.style.display = 'none';
+        Array.from(document.getElementsByName(`pregunta${numPregunta}`)).map((opcion) => {
+            opcion.disabled = true;
+        })
+        let opcionElegida = document.querySelector(`[name="pregunta${numPregunta}"]:checked`);
+        if ( opcionElegida ) {
+            if (opcionElegida.value == respuesta) {
+                opcionElegida.classList.add('is-valid');
+                aciertos++;
+            } else opcionElegida.classList.add('is-invalid');
+        }
+    });
+    txtPuntuacionComprension.innerHTML = `${Math.round((aciertos/preguntas.length) * 100)}%`;
+    resultadosComprension.style.display = 'initial';
+    resultadosComprension.scrollIntoView({block: "center", behavior: "smooth"});
+}
+
 btnReiniciar.onclick = mostrarLectura;
 btnNuevaLectura.onclick = obtenerNuevaLectura;
 
+// INICIO
 obtenerLecturaPorNivel(1);

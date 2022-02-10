@@ -19,3 +19,7 @@ body {
 .lora {
     font-family: Lora;
 }
+
+.btn-outline-dark {
+    background-color: white;
+}
