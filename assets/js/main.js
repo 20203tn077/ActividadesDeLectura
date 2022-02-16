@@ -84,8 +84,8 @@ function mostrarLectura() {
 }
 
 function obtenerLecturaPorNivel(nivel) {
+    if (indiceNivelActual != nivel - 1) indiceLecturaActual = -1; // Esto es para que no excluya lecturas con el mismo indice cuando cambia de nivel
     indiceNivelActual = nivel - 1;
-    indiceLecturaActual = -1; // Esto es para que no excluya lecturas con el mismo indice cuando cambia de nivel
     obtenerLectura();
 }
 
