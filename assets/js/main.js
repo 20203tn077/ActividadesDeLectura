@@ -1,3 +1,8 @@
+// INDICE DE LECTURAS
+// En este arreglo indica el número de lecturas en cada carpeta.
+const indiceLecturas = [2,1,1];
+
+
 // ELEMENTOS
 // Secciones
 const secActividad = document.getElementById('secActividad');
@@ -28,7 +33,8 @@ const resultadosVelocidad = document.getElementById('resultadosVelocidad');
 const resultadosComprension = document.getElementById('resultadosComprension');
 
 // VARIABLES
-let lecturasActual;
+let indiceNivelActual = 0;
+let indiceLecturaActual = 0;
 let lecturaActual;
 let procesoContador;
 let contadorSegundos;
@@ -36,16 +42,15 @@ let contadorMinutos;
 
 // FUNCIONES
 function obtenerLectura() {
-    return lecturasActual[Math.floor(Math.random() * lecturasActual.length)];
-}
-
-function obtenerNuevaLectura() {
-    let lecturaNueva;
+    let indiceLecturaNueva;
     do {
-        lecturaNueva = obtenerLectura();
-    } while (lecturaNueva == lecturaActual && lecturasActual.length > 1);
-    lecturaActual = lecturaNueva;
-    mostrarLectura();
+        indiceLecturaNueva = Math.floor(Math.random() * indiceLecturas[indiceNivelActual]);
+    } while (indiceLecturaNueva == indiceLecturaActual && indiceLecturas[indiceNivelActual] > 1);
+    indiceLecturaActual = indiceLecturaNueva;
+    fetch(`/assets/lecturas/nivel${indiceNivelActual+1}/lectura${indiceLecturaActual+1}.json`).then(data => data.json()).then(lectura => {
+        lecturaActual = lectura;
+        mostrarLectura();
+    });
 }
 
 function mostrarLectura() {
@@ -78,8 +83,9 @@ function mostrarLectura() {
 }
 
 function obtenerLecturaPorNivel(nivel) {
-    lecturasActual = lecturas[nivel - 1];
-    obtenerNuevaLectura();
+    indiceNivelActual = nivel - 1;
+    indiceLecturaActual = -1; // Esto es para que no excluya lecturas con el mismo indice
+    obtenerLectura();
 }
 
 // LISTENERS
@@ -143,7 +149,7 @@ btnTerminarComprension.onclick = () => {
 }
 
 btnReiniciar.onclick = mostrarLectura;
-btnNuevaLectura.onclick = obtenerNuevaLectura;
+btnNuevaLectura.onclick = obtenerLectura;
 
 // INICIO
 obtenerLecturaPorNivel(1);
