@@ -47,7 +47,8 @@ function obtenerLectura() {
         indiceLecturaNueva = Math.floor(Math.random() * indiceLecturas[indiceNivelActual]);
     } while (indiceLecturaNueva == indiceLecturaActual && indiceLecturas[indiceNivelActual] > 1);
     indiceLecturaActual = indiceLecturaNueva;
-    fetch(`/assets/lecturas/nivel${indiceNivelActual+1}/lectura${indiceLecturaActual+1}.json`).then(data => data.json()).then(lectura => {
+    // Para usar en github pages se agrega el nombre de la carpeta.
+    fetch(`/ActividadesDeLectura/assets/lecturas/nivel${indiceNivelActual+1}/lectura${indiceLecturaActual+1}.json`).then(data => data.json()).then(lectura => {
         lecturaActual = lectura;
         mostrarLectura();
     });
@@ -84,7 +85,7 @@ function mostrarLectura() {
 
 function obtenerLecturaPorNivel(nivel) {
     indiceNivelActual = nivel - 1;
-    indiceLecturaActual = -1; // Esto es para que no excluya lecturas con el mismo indice
+    indiceLecturaActual = -1; // Esto es para que no excluya lecturas con el mismo indice cuando cambia de nivel
     obtenerLectura();
 }
 
