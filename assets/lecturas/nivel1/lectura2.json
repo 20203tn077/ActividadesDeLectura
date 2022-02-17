@@ -29,15 +29,6 @@
                 "Porque son mejores cazadores."
             ],
             "respuesta": "Porque traen buena suerte."
-        },
-        {
-            "pregunta": "¿A quién le robaban los gatos?",
-            "opciones": [
-                "Al tendero.",
-                "Al vecino del piso bajo.",
-                "Al cura."
-            ],
-            "respuesta": "Al tendero."
         }
     ]
 }
